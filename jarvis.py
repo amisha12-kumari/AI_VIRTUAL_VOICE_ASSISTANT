@@ -1,8 +1,6 @@
 import random
 import json
 import torch.cuda
-import datetime
-
 from Brain import NeuralNet
 from NeuralNetwork import bag_of_words, tokenize
 
@@ -25,21 +23,21 @@ model = NeuralNet(input_size, hidden_size, output_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
 
-# ------------------------------------------
+# -----------------------------------------------------
 
-Name = "jarvis"
+Name = "AI Virtual Assistant"
 from Listen import Listen
 from Speak import Say
 from Task import NonInputExecution
 from Task import InputExecution
 
 
-
 def Main():
     sentence = Listen()
-    result = str(sentence)
+    query = str(sentence)
 
     if sentence == "bye":
+        Say("Going to sleep,Thank You")
         exit()
 
     sentence = tokenize(sentence)
@@ -60,9 +58,15 @@ def Main():
         for intent in intents["intents"]:
             if tag == intent["tag"]:
                 reply = random.choice(intent["responses"])
+                # reply => RandomResponse by Model, query => str(sentence) == Command by user
 
                 # Task Implementation----
-                if "time" in reply:
+                if "greeting" in tag:
+                    pass
+                    # from GreetMe import greetMe
+                    # greetMe()
+
+                elif "time" in reply:
                     NonInputExecution(reply)
 
                 elif "date" in reply:
@@ -72,19 +76,47 @@ def Main():
                     NonInputExecution(reply)
 
                 elif "wikipedia" in reply:
-                    InputExecution(reply, sentence)  # reply => random response , result => str(sentence) == jo search kiya gya hai
+                    InputExecution(reply,sentence)
 
-                elif "google" in reply:
-                    InputExecution(reply, result)
+                # elif "google" in reply:
+                #     InputExecution(reply, query)
 
                 elif "random advice" in reply:
                     NonInputExecution(reply)
 
                 elif "translate" in reply:
-                    InputExecution(reply, result)
+                    InputExecution(reply, query)
+
+                elif "internet speed" in reply:
+                    NonInputExecution(reply)
+
+                elif "movie" in reply:
+                    InputExecution(reply, tag)
+
+                elif "news" in reply:
+                    InputExecution(reply, query)
+
+                elif "temperature" in reply:
+                    InputExecution(reply, query)
+
+                elif "open" in reply:
+                    InputExecution(reply, query)
+
+                elif "close" in reply:
+                    InputExecution(reply, query)
+
+                elif "search on google" in reply:
+                    InputExecution(reply, query)
+
+                elif "search on youtube" in reply:
+                    InputExecution(reply, query)
+
+                elif "whatsapp" in reply:
+                    InputExecution(reply,query)
+
 
                 else:
-                    Say(reply)
+                    print(reply)
 
 
 while True:

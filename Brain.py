@@ -1,6 +1,5 @@
 import torch.nn as nn  # pip install torch
 
-
 class NeuralNet(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
         super(NeuralNet, self).__init__()
@@ -9,7 +8,7 @@ class NeuralNet(nn.Module):
         self.l3 = nn.Linear(hidden_size, num_classes)
         self.relu = nn.ReLU()
 
-    def forward(self, x):
+    def forward(self,x):
         out = self.l1(x)
         out = self.relu(out)
         out = self.l2(out)

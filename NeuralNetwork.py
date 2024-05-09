@@ -1,10 +1,10 @@
 import numpy as np  # pip install numpy
-import nltk
+import nltk     # pip install nltk
 from nltk.stem.porter import PorterStemmer
-# import nltk
-# nltk.download('punkt')
+
 
 Stemmer = PorterStemmer()
+
 
 def tokenize(sentence):  # sentence = jo bhi hum bolenge wo sentence mei aayega as a input
     return nltk.word_tokenize(sentence)
@@ -23,3 +23,4 @@ def bag_of_words(tokenized_sentence, words):
             bag[idx] = 1
 
     return bag
+

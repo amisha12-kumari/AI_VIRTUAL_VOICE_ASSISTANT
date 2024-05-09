@@ -5,10 +5,11 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from NeuralNetwork import bag_of_words, tokenize, stem
 from Brain import NeuralNet
+from Speak import Say
+
 
 with open("intents.json", 'r') as f:
     intents = json.load(f)
-
 all_words = []
 tags = []
 xy = []
@@ -48,7 +49,7 @@ input_size = len(x_train[0])
 hidden_size = 8
 output_size = len(tags)
 
-print("Training the model...")
+Say("Model Training Start...")
 
 
 class ChatDataset(Dataset):
@@ -87,10 +88,10 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
-    # if (epoch + 1) % 100 == 0:
-    #     print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}')
+    if (epoch + 1) % 100 == 0:
+        print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}')
 
-print(f"Final Loss : {loss.item():.4f}")
+Say(f"Final Loss :  {loss.item():.4f}")
 
 data = {
     "model_state": model.state_dict(),
@@ -104,4 +105,4 @@ data = {
 FILE = "TrainData.pth"  # Create File
 torch.save(data, FILE)  # Save data into the File
 
-print(f"Training Completed, File Saved To {FILE}")
+Say(f"Training Completed, File Saved To {FILE}")

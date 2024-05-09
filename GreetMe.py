@@ -4,6 +4,8 @@ import datetime
 def greetMe():
     hour = int(datetime.datetime.now().hour)
 
+    # Say("Virtual Assistant Activated")
+
     if 0 <= hour <= 12:
         Say("Good Morning")
 
@@ -14,3 +16,5 @@ def greetMe():
         Say("Good evening")
 
     Say("Please tell me, How can I help you ? ")
+
+
